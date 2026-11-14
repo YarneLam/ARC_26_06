@@ -1,2 +1,8 @@
 
 /A3/26-01-D-ARCH.ifc
+
+# Jupyter temporary files
+.ipynb_checkpoints/
+
+# Excel temporary files
+~$*.xlsx
