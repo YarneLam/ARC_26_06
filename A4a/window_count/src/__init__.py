@@ -1,0 +1,1 @@
+"""Reusable window-count source."""
