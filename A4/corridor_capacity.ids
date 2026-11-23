@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ids xmlns="http://standards.buildingsmart.org/IDS"
+     xmlns:xs="http://www.w3.org/2001/XMLSchema"
+     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+     xsi:schemaLocation="http://standards.buildingsmart.org/IDS https://standards.buildingsmart.org/IDS/1.0/ids.xsd">
+  <info>
+    <title>ARCH06 Corridor 2L screening inputs</title>
+    <version>1.0</version>
+    <description>Checks selected input identifiers and floor-area quantities. Geometry and route assignment are checked by the analysis and design review.</description>
+  </info>
+  <specifications>
+    <specification name="The selected corridor space exists on a storey" ifcVersion="IFC4 IFC4X3_ADD2">
+      <applicability minOccurs="1" maxOccurs="1">
+        <entity><name><simpleValue>IFCSPACE</simpleValue></name></entity>
+        <attribute>
+          <name><simpleValue>LongName</simpleValue></name>
+          <value><simpleValue>Corridor 2L</simpleValue></value>
+        </attribute>
+      </applicability>
+      <requirements>
+        <partOf relation="IFCRELAGGREGATES" cardinality="required">
+          <entity><name><simpleValue>IFCBUILDINGSTOREY</simpleValue></name></entity>
+        </partOf>
+      </requirements>
+    </specification>
+    <specification name="Door identities for adjacency screening" ifcVersion="IFC4 IFC4X3_ADD2">
+      <applicability minOccurs="1" maxOccurs="unbounded">
+        <entity><name><simpleValue>IFCDOOR</simpleValue></name></entity>
+      </applicability>
+      <requirements>
+        <attribute cardinality="required"><name><simpleValue>GlobalId</simpleValue></name></attribute>
+      </requirements>
+    </specification>
+    <specification name="Floor area for the assembly room scenarios" ifcVersion="IFC4 IFC4X3_ADD2">
+      <applicability minOccurs="0" maxOccurs="unbounded">
+        <entity><name><simpleValue>IFCSPACE</simpleValue></name></entity>
+        <attribute>
+          <name><simpleValue>LongName</simpleValue></name>
+          <value>
+            <xs:restriction base="xs:string">
+              <xs:enumeration value="Auditorium"/>
+              <xs:enumeration value="Multipurpose Space"/>
+            </xs:restriction>
+          </value>
+        </attribute>
+      </applicability>
+      <requirements>
+        <property dataType="IFCAREAMEASURE" cardinality="required">
+          <propertySet><simpleValue>Qto_SpaceBaseQuantities</simpleValue></propertySet>
+          <baseName><simpleValue>NetFloorArea</simpleValue></baseName>
+        </property>
+      </requirements>
+    </specification>
+  </specifications>
+</ids>

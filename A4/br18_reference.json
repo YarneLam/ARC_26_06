@@ -1,0 +1,32 @@
+{
+  "occupancy_source": {
+    "title": "BR18, Chapter 5 fire guidance, Annex 4",
+    "version": "1.2 (2021-10-29)",
+    "locator": "Table 2.3.2, page 19",
+    "url": "https://www.bygningsreglementet.dk/media/4kwdmmqe/bilag-4-forsamlingslokaler-butik-mv-ver-12-20211029-a.pdf#page=19"
+  },
+  "occupancy_densities": {
+    "retail_exhibition": {
+      "use": "Retail or exhibition area with low occupant density",
+      "people_per_m2": [0.3, 1.0]
+    },
+    "seated_assembly": {
+      "use": "Assembly or dining area arranged with chairs",
+      "people_per_m2": [1.0, 1.0]
+    },
+    "standing_assembly": {
+      "use": "Assembly area with a standing crowd",
+      "people_per_m2": [3.0, 5.0]
+    }
+  },
+  "common_access_width": {
+    "minimum_m": 1.30,
+    "locator": "BR18 §56(2)",
+    "url": "https://www.bygningsreglementet.dk/Tekniske-bestemmelser/02/Krav/55_56"
+  },
+  "assembly_route_width": {
+    "metres_per_person": 0.010,
+    "locator": "BR18 Chapter 5 guidance, Annex 4 v1.2, section 2.3.3.2, page 19",
+    "url": "https://www.bygningsreglementet.dk/media/4kwdmmqe/bilag-4-forsamlingslokaler-butik-mv-ver-12-20211029-a.pdf#page=19"
+  }
+}
