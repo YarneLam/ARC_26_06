@@ -1,5 +1,6 @@
-"""Infer which spaces meet a doorway on the selected corridor segment."""
+"""Find the spaces on both sides of a doorway."""
 
+from collections import defaultdict
 from dataclasses import dataclass
 import math
 
@@ -86,6 +87,81 @@ def room_on_side(doorway, side, footprints):
     return [], None
 
 
+def space_footprints(spaces, known=None):
+    footprints = {} if known is None else dict(known)
+    missing = []
+    for guid, space in spaces.items():
+        if guid in footprints:
+            continue
+        try:
+            footprints[guid] = floor_geometry(space)
+        except (RuntimeError, ValueError):
+            missing.append(guid)
+    return footprints, sorted(missing)
+
+
+def explicit_door_spaces(model):
+    links = defaultdict(set)
+    for boundary in model.by_type("IfcRelSpaceBoundary"):
+        element = boundary.RelatedBuildingElement
+        space = boundary.RelatingSpace
+        if element is None or space is None or not space.is_a("IfcSpace"):
+            continue
+        if element.is_a("IfcDoor"):
+            links[element.GlobalId].add(space.GlobalId)
+        elif element.is_a("IfcOpeningElement"):
+            for filling in element.HasFillings:
+                door = filling.RelatedBuildingElement
+                if door.is_a("IfcDoor"):
+                    links[door.GlobalId].add(space.GlobalId)
+    return links
+
+
+def storey_door_links(doors, spaces, footprints, corridors, explicit_links):
+    """Match each door once on its own storey, indexed by corridor GUID."""
+    settings = ifcopenshell.geom.settings()
+    settings.set("use-world-coords", True)
+    links = defaultdict(list)
+    unlocated = []
+    for door in doors:
+        guid = door.GlobalId
+        explicit = sorted(explicit_links.get(guid, ()))
+        if len(explicit) == 2 and all(space_guid in spaces for space_guid in explicit):
+            for corridor in corridors.intersection(explicit):
+                links[corridor].append({
+                    "door_guid": guid, "geometry_source": "ifc_space_boundary", "status": "explicit",
+                    "candidate_space_guids_by_side": [[room] for room in explicit],
+                    "adjacent_space_guid": next(room for room in explicit if room != corridor),
+                })
+            continue
+
+        try:
+            doorway = doorway_geometry(settings, door)
+        except (RuntimeError, ValueError):
+            unlocated.append(guid)
+            continue
+        first, second = (room_on_side(doorway, side, footprints)[0] for side in (-1, 1))
+        pair = first + second
+        resolved = len(first) == len(second) == 1 and first != second
+        nearby = corridors.intersection(pair)
+        if not resolved and not nearby:
+            center = Point(doorway.x, doorway.y)
+            nearby = {
+                corridor for corridor in corridors.intersection(footprints)
+                if abs(doorway.z - footprints[corridor][1]) <= FLOOR_TOLERANCE_M
+                and center.distance(footprints[corridor][0]) <= doorway.half_depth + PROBE_OFFSETS_M[-1]
+            }
+        for corridor in nearby:
+            links[corridor].append({
+                "door_guid": guid, "geometry_source": doorway.source,
+                "center_xy_m": [round(doorway.x, 4), round(doorway.y, 4)],
+                "candidate_space_guids_by_side": [first, second],
+                "adjacent_space_guid": next((room for room in pair if room != corridor), None) if resolved else None,
+                "status": "inferred" if resolved else "needs_review",
+            })
+    return links, sorted(unlocated)
+
+
 def connects_to_segment(point, footprint, route, station):
     center = route.interpolate(station)
     return point.equals(center) or footprint.covers(LineString([point, center]))
@@ -101,15 +177,7 @@ def corridor_connections(model, corridor, geometry, start, end):
         if containing_storey(space) == storey and not is_reference_area(space)
     }
     corridor_guid = corridor.GlobalId
-    footprints = {corridor_guid: geometry}
-    missing_footprints = []
-    for guid, space in spaces.items():
-        if guid == corridor_guid:
-            continue
-        try:
-            footprints[guid] = floor_geometry(space)
-        except (RuntimeError, ValueError):
-            missing_footprints.append(guid)
+    footprints, missing_footprints = space_footprints(spaces, {corridor_guid: geometry})
 
     route = LineString([start, end])
     footprint, elevation = geometry

@@ -51,17 +51,19 @@ def capacity_screening(width, rooms, assignment_verified, references):
     known_range = [sum(room[key] for room in known) for key in ("people_min", "people_max")]
     required = [round(max(access_width, people * annex_rate), 6) for people in known_range]
     known_comparison = None
-    if known:
+    if known and width is not None:
         known_comparison = "at_or_above_reference" if width >= required[1] else "below_upper_reference"
 
     return {
-        "status": "screening_complete" if assignment_verified and known and not unresolved else "review_required",
+        "status": "screening_complete" if width is not None and assignment_verified and known and not unresolved else "review_required",
         "known_room_load_people": known_range if known else None,
         "rooms_missing_occupancy_guids": unresolved,
         "required_width_for_known_load_m": required if known else None,
         "known_load_width_comparison": known_comparison,
         "common_access_width_reference_m": access_width,
-        "common_access_width_comparison": "at_or_above_reference" if width >= access_width else "below_reference",
+        "common_access_width_comparison": (
+            None if width is None else "at_or_above_reference" if width >= access_width else "below_reference"
+        ),
         "annex_4_scenario_metres_per_person": annex_rate,
     }
 

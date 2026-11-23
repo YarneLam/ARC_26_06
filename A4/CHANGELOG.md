@@ -5,5 +5,8 @@
 - Registered the corridor-capacity analysis in the course template's local runner.
 - Split doorway matching, occupancy, width, and capacity screening into reusable functions.
 - Added JSON output with inferred links, BR18 sources, room loads, and review status.
-- Verified the runner on Team 08 Corridor 2L and tested duplicate doors and documented route loads with a small IFC fixture.
-- Added the input IDS and validated its XML against the buildingSMART IDS schema.
+- Used Team 08 Corridor 2L for the worked segment example.
+- Added the input IDS.
+- Added a corridor capacity Excel report with the width shortfall in millimetres and an editable what-if occupant load.
+- Made the whole IFC the default corridor-capacity scope. The reports include each identified corridor, storey coverage, connected room estimates, and the widening shortfall in millimetres.
+- Kept the worked Corridor 2L segment available through `--segment`.
