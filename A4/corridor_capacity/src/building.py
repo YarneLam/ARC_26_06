@@ -165,5 +165,6 @@ def analyse(model, *, extra_corridor_guids=None, route_rooms=None, room_uses=Non
             "Automatic width screens facing edges in the floor footprint. Verify reported bottlenecks, branches and clear widths on the plan.",
             "The default load is from directly connected rooms. Verify upstream flows, alternative exits and cross-storey assignments separately.",
             "A room can serve multiple corridors. Avoid adding per-corridor occupant totals.",
+            "The Annex 4 width rate is a screening scenario. Confirm its applicability for each route.",
         ],
     }

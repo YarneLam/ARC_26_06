@@ -10,3 +10,4 @@
 - Added a corridor capacity Excel report with the width shortfall in millimetres and an editable what-if occupant load.
 - Made the whole IFC the default corridor-capacity scope. The reports include each identified corridor, storey coverage, connected room estimates, and the widening shortfall in millimetres.
 - Kept the worked Corridor 2L segment available through `--segment`.
+- Updated the IDS for whole-IFC inputs and labeled the Annex 4 width comparison as a screening scenario in the reports.

@@ -4,18 +4,14 @@
      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
      xsi:schemaLocation="http://standards.buildingsmart.org/IDS https://standards.buildingsmart.org/IDS/1.0/ids.xsd">
   <info>
-    <title>ARCH06 Corridor 2L screening inputs</title>
-    <version>1.0</version>
-    <description>Checks selected input identifiers and floor-area quantities. Geometry and route assignment are checked by the analysis and design review.</description>
+    <title>ARCH06 IFC inputs for corridor capacity</title>
+    <version>1.1</version>
+    <description>Checks space and door inputs for the whole IFC. The Python tool checks corridor labels, usable footprints and room-to-door connections.</description>
   </info>
   <specifications>
-    <specification name="The selected corridor space exists on a storey" ifcVersion="IFC4 IFC4X3_ADD2">
-      <applicability minOccurs="1" maxOccurs="1">
+    <specification name="Spaces assigned to building storeys" ifcVersion="IFC4 IFC4X3_ADD2">
+      <applicability minOccurs="1" maxOccurs="unbounded">
         <entity><name><simpleValue>IFCSPACE</simpleValue></name></entity>
-        <attribute>
-          <name><simpleValue>LongName</simpleValue></name>
-          <value><simpleValue>Corridor 2L</simpleValue></value>
-        </attribute>
       </applicability>
       <requirements>
         <partOf relation="IFCRELAGGREGATES" cardinality="required">
@@ -31,22 +27,27 @@
         <attribute cardinality="required"><name><simpleValue>GlobalId</simpleValue></name></attribute>
       </requirements>
     </specification>
-    <specification name="Floor area for the assembly room scenarios" ifcVersion="IFC4 IFC4X3_ADD2">
+    <specification name="Net floor area when supplied" ifcVersion="IFC4 IFC4X3_ADD2">
       <applicability minOccurs="0" maxOccurs="unbounded">
         <entity><name><simpleValue>IFCSPACE</simpleValue></name></entity>
-        <attribute>
-          <name><simpleValue>LongName</simpleValue></name>
-          <value>
+        <property>
+          <propertySet>
             <xs:restriction base="xs:string">
-              <xs:enumeration value="Auditorium"/>
-              <xs:enumeration value="Multipurpose Space"/>
+              <xs:enumeration value="Qto_SpaceBaseQuantities"/>
+              <xs:enumeration value="BaseQuantities"/>
             </xs:restriction>
-          </value>
-        </attribute>
+          </propertySet>
+          <baseName><simpleValue>NetFloorArea</simpleValue></baseName>
+        </property>
       </applicability>
       <requirements>
         <property dataType="IFCAREAMEASURE" cardinality="required">
-          <propertySet><simpleValue>Qto_SpaceBaseQuantities</simpleValue></propertySet>
+          <propertySet>
+            <xs:restriction base="xs:string">
+              <xs:enumeration value="Qto_SpaceBaseQuantities"/>
+              <xs:enumeration value="BaseQuantities"/>
+            </xs:restriction>
+          </propertySet>
           <baseName><simpleValue>NetFloorArea</simpleValue></baseName>
         </property>
       </requirements>
