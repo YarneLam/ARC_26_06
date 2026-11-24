@@ -1,32 +1,24 @@
-\# A5 – Project Reflection
+# A5 – Project Reflection
 
 
 
-\*\*Group:\*\* ARCH06  
+**Group:** ARCH06  
 
-\*\*Focus area:\*\* Architecture  
+**Focus area:** Architecture  
 
-\*\*Group members:\*\* Albert Manzanares Fernández, Yarne Lambrechts, Yasmin Ayad Hussein Al-Seelawi
-
-
-
-\---
+**Group members:** Albert Manzanares Fernández, Yarne Lambrechts, Yasmin Ayad Hussein Al-Seelawi
 
 
 
-\## 1. Individual Reflections
+---
 
 
 
-\### 1.1 Albert – Individual Reflection
+## 1. Individual Reflections
 
 
 
-
-
-
-
-\### 1.2 Yarne – Individual Reflection
+### 1.1 Albert – Individual Reflection
 
 
 
@@ -34,7 +26,15 @@
 
 
 
-\### 1.3 Yasmin – Individual Reflection
+### 1.2 Yarne – Individual Reflection
+
+
+
+
+
+
+
+### 1.3 Yasmin – Individual Reflection
 
 
 
@@ -70,15 +70,15 @@ Overall, progressing from A1 to A5 has given me a better understanding of OpenBI
 
 
 
-\---
+---
 
 
 
-\## 2. Group Reflection
+## 2. Group Reflection
 
 
 
-\### 2.1 Feedback on Our A3 Tutorial
+### 2.1 Feedback on Our A3 Tutorial
 
 
 
@@ -98,7 +98,7 @@ Since the submission deadline had already passed when we received the feedback, 
 
 
 
-\### 2.2 Did Our A4 Tool Address the A2 Use Case?
+### 2.2 Did Our A4 Tool Address the A2 Use Case?
 
 
 
@@ -122,7 +122,7 @@ Therefore, we consider the tool useful for identifying potential issues rather t
 
 
 
-\### 2.3 Application in Advanced Building Design
+### 2.3 Application in Advanced Building Design
 
 
 
@@ -138,17 +138,17 @@ Overall, the process from A2 to A4 helped us understand how a BIM use case can b
 
 
 
-\---
+---
 
 
 
-\## 3. Project References
+## 3. Project References
 
 
 
-\- \[A2 – Use Case](https://github.com/YarneLam/ARC\_26\_06/tree/main/A2)
+- [A2 – Use Case](https://github.com/YarneLam/ARC_26_06/tree/main/A2)
 
-\- \[A3 – Tutorial](https://github.com/YarneLam/ARC\_26\_06/tree/main/A3)
+- [A3 – Tutorial](https://github.com/YarneLam/ARC_26_06/tree/main/A3)
 
-\- \[A4 – Corridor Capacity Tool](https://github.com/YarneLam/ARC\_26\_06/tree/main/A4)
+- [A4 – Corridor Capacity Tool](https://github.com/YarneLam/ARC_26_06/tree/main/A4)
 
